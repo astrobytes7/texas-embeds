@@ -1,32 +1,35 @@
-const { EmbedBuilder } = require('discord.js');
+const {
+    ContainerBuilder,
+    TextDisplayBuilder,
+    MessageFlags
+} = require("discord.js");
 
 module.exports = {
     customID: 'info-menu',
     execute: async (interaction, client) => {
         const selection = interaction.values[0];
 
+        let title = '';
+        let description = '';
+
         if (selection === 'important_links') {
-            const embed = new EmbedBuilder()
-                .setTitle('🔗 Important Links')
-                .setColor('#2b2d31')
-                .setDescription('- [Website](https://noteshan.xyz)\n- [Support Server](https://discord.gg/example)\n- [Documentation](https://docs.example.com)');
-
-            return interaction.reply({
-                embeds: [embed],
-                ephemeral: true
-            });
+            title = "### 🔗 Important Links";
+            description = "- [Website](https://noteshan.xyz)\n- [Support Server](https://discord.gg/example)\n- [Documentation](https://docs.example.com)";
+        } else if (selection === 'about_us') {
+            title = "### ℹ️ About Us";
+            description = "We are a community dedicated to creating high-quality experiences on Roblox and Discord. Feel free to reach out to **not.eshan** for any inquiries!";
         }
 
-        if (selection === 'about_us') {
-            const embed = new EmbedBuilder()
-                .setTitle('ℹ️ About Us')
-                .setColor('#2b2d31')
-                .setDescription('We are a community dedicated to creating high-quality experiences on Roblox and Discord. Feel free to reach out to **not.eshan** for any inquiries!');
+        const components = [
+            new ContainerBuilder()
+                .addTextDisplayComponents(new TextDisplayBuilder().setContent(title))
+                .addTextDisplayComponents(new TextDisplayBuilder().setContent(description))
+        ];
 
-            return interaction.reply({
-                embeds: [embed],
-                ephemeral: true
-            });
-        }
+        return interaction.reply({
+            flags: MessageFlags.IsComponentsV2,
+            components,
+            ephemeral: true
+        });
     }
 };
