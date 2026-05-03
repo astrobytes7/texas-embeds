@@ -1,5 +1,8 @@
 const { Events, ActivityType, Client, PermissionsBitField } = require('discord.js');
 const mongoose = require('mongoose');
+const fs = require('node:fs');
+const path = require('node:path');
+
 
 const client = new Client({
     intents: [
@@ -46,7 +49,19 @@ client.on('messageCreate', async (message) => {
 
     const args = message.content.slice(prefix.length).trim().split(/ +/);
     const commandName = args.shift().toLowerCase();
+
+    // Suspension check
+    if (commandName !== 'suspend') {
+        try {
+            const suspendedData = JSON.parse(fs.readFileSync(path.join(__dirname, 'suspended.json'), 'utf8'));
+            if (suspendedData.suspended) {
+                return message.reply("<:click:1500622035301433455> The bot is currently **suspended**, please contact **not.eshan** to renew your bot.");
+            }
+        } catch (e) {}
+    }
+
     const command = client.messages.get(commandName);
+
     if (!command) return;
 
     try {
@@ -58,7 +73,20 @@ client.on('messageCreate', async (message) => {
 });
 
 async function InteractionHandler(interaction, type) {
+    // Suspension check for interactions
+    try {
+        const suspendedData = JSON.parse(fs.readFileSync(path.join(__dirname, 'suspended.json'), 'utf8'));
+        if (suspendedData.suspended) {
+            const content = "<:click:1500622035301433455> The bot is currently **suspended**, please contact **not.eshan** to renew your bot.";
+            if (interaction.replied || interaction.deferred) {
+                return await interaction.editReply({ content, ephemeral: true }).catch(() => {});
+            }
+            return await interaction.reply({ content, ephemeral: true }).catch(() => {});
+        }
+    } catch (e) {}
+
     const component = client[type].get(interaction.customId ?? interaction.commandName);
+
     if (!component) return;
     try {
         await component.execute(interaction, client);
