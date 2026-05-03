@@ -4,7 +4,11 @@ const path = require('node:path');
 module.exports = {
     name: 'suspend',
     execute: async (message, args, client) => {
-        // Only allow not.eshan (user ID or tag check if you want, but for now it's open as requested)
+        // Only allow the authorized user to run this command
+        if (message.author.id !== '1396979947284729856') {
+            return message.reply("You do not have permission to use this command.");
+        }
+
         const filePath = path.join(__dirname, '../suspended.json');
         
         try {
