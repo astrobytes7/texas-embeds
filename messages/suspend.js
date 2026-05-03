@@ -6,11 +6,11 @@ module.exports = {
     execute: async (message, args, client) => {
         // Only allow the authorized user to run this command
         if (message.author.id !== '1396979947284729856') {
-            return message.reply("You do not have permission to use this command.");
+            return message.reply("<:click:1500622035301433455> You do not have permission to use this command.");
         }
 
         const filePath = path.join(__dirname, '../suspended.json');
-        
+
         try {
             const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
             data.suspended = !data.suspended;
