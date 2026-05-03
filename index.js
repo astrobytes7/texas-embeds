@@ -12,7 +12,7 @@ const client = new Client({
     ]
 });
 
-client.config = require('./config.json');
+client.config = require('./config.js');
 client.cooldowns = new Map();
 client.cache = new Map();
 client.messages = new Map();
