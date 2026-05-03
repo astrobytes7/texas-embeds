@@ -1,16 +1,22 @@
-const { ActionRowBuilder, ButtonBuilder, ButtonStyle, StringSelectMenuBuilder } = require('discord.js');
+const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, StringSelectMenuBuilder } = require('discord.js');
 
 module.exports = {
     name: 'info',
     execute: async (message, args, client) => {
+        // Create the "v2 container" using an Embed
+        const embed = new EmbedBuilder()
+            .setColor('#2b2d31') // Sleek dark color
+            .setImage('https://i.imgur.com/uR1D8Y4.png') // Placeholder for your gallery image
+            .setDescription('Welcome to the **Information Center**! Use the components below to navigate through our resources and learn more about us.');
+
         // Main Button Row
         const buttonRow = new ActionRowBuilder()
             .addComponents(
                 new ButtonBuilder()
                     .setLabel('Roblox Group')
                     .setStyle(ButtonStyle.Link)
-                    .setURL('https://www.roblox.com/groups/0/Your-Group-Here') // You can customize this link
-                    .setEmoji('1261058032763240551') // You can replace with a Roblox emoji ID or a standard emoji
+                    .setURL('https://www.roblox.com/groups/0/Your-Group-Here')
+                    .setEmoji('1261058032763240551') 
             );
 
         // Select Menu Row
@@ -36,7 +42,7 @@ module.exports = {
             );
 
         await message.reply({
-            content: 'Welcome to the **Information Center**! Use the button below to visit our group, or use the dropdown to learn more.',
+            embeds: [embed],
             components: [buttonRow, menuRow]
         });
     }
