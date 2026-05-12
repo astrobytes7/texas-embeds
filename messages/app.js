@@ -32,7 +32,7 @@ module.exports = {
                 new ButtonBuilder()
                     .setCustomId('ban-appeal')
                     .setLabel('Ban Appeal')
-                    .setStyle(ButtonStyle.Primary)
+                    .setStyle(ButtonStyle.Danger)
             );
 
         await message.channel.send({

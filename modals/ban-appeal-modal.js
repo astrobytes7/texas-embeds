@@ -17,15 +17,20 @@ module.exports = {
                 { name: "What will you do to not do it again?", value: prevention }
             )
             .setColor('#292929')
-            .setTimestamp()
+            .setImage('https://media.discordapp.net/attachments/1500319658467655771/1500537768277839926/image.png?ex=6a035832&is=6a0206b2&hm=5d110913583a6c848344e10d747c115bf398e8e2af0ec0b91a64b943e11f6436&=&format=webp&quality=lossless&width=2618&height=132')
             .setFooter({ text: "Texas State Roleplay | Ban Appeal System" });
 
-        // You can add a channel ID here to log the appeal
-        // const logChannel = interaction.guild.channels.cache.get('YOUR_CHANNEL_ID');
-        // if (logChannel) logChannel.send({ embeds: [appealEmbed] });
+        const logChannel = interaction.guild.channels.cache.get('1503596513123631114');
+        if (logChannel) {
+            const logMessage = await logChannel.send({ embeds: [appealEmbed] });
+            await logMessage.startThread({
+                name: 'discussion',
+                autoArchiveDuration: 1440,
+            }).catch(() => {});
+        }
 
         await interaction.reply({
-            content: "✅ Your ban appeal has been successfully submitted and will be reviewed by Management shortly.",
+            content: "Your ban appeal has been successfully submitted and will be reviewed by Management shortly.",
             ephemeral: true
         });
     }
