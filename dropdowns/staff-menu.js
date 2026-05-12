@@ -11,10 +11,8 @@ module.exports = {
         if (selection === 'staff_links') {
             title = "Staff | Important Links";
             description = "> Access the essential resources below for your staff duties.\n\n" +
-                "**Staff Trello:** [Click Here](https://trello.com)\n" +
-                "**Staff Logs:** <#1485738000574054542>\n" +
-                "**Absence Requests:** <#1485738000574054544>\n" +
-                "**Promotion Logs:** <#1485738000574054543>";
+                "**Melony:** [Join Here](https://melon.ly/join/playcal)\n" +
+                "**Staff Group:** [View Group](https://www.roblox.com/share/g/1062050647)";
         } else if (selection === 'staff_guide') {
             title = "Staff | Official Guide";
             description = "> Follow these procedures to ensure high-quality moderation.\n\n" +

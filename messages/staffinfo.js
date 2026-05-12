@@ -15,6 +15,7 @@ module.exports = {
 
         const infoEmbed = new EmbedBuilder()
             .setTitle("<:txrp:1493060300281352243> Staff Information")
+            .setImage('https://media.discordapp.net/attachments/1500319658467655771/1500537768277839926/image.png?ex=6a035832&is=6a0206b2&hm=5d110913583a6c848344e10d747c115bf398e8e2af0ec0b91a64b943e11f6436&=&format=webp&quality=lossless&width=2618&height=132')
             .setDescription("> Welcome to the **<:txrp:1493060300281352243> Texas State Roleplay** staff team. In this channel you will be able to view all of the information you need to be a sucesful staff member in our server. We ask that you read everything carefully, as making mistakes can result in a infraction.")
             .setColor('#292929')
             .setFooter({
@@ -41,9 +42,9 @@ module.exports = {
                     ])
             );
 
-        await message.channel.send({ 
-            embeds: [banner, infoEmbed], 
-            components: [dropdown] 
+        await message.channel.send({
+            embeds: [banner, infoEmbed],
+            components: [dropdown]
         });
     },
 };
