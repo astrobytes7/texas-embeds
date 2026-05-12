@@ -26,14 +26,18 @@ module.exports = {
         const row = new ActionRowBuilder()
             .addComponents(
                 new ButtonBuilder()
-                    .setCustomId('apply-mod')
                     .setLabel('In-Game Moderator')
+                    .setStyle(ButtonStyle.Link)
+                    .setURL("https://melonly.xyz/dashboard/7427810980022718464/applications/7453852681967243264"),
+                new ButtonBuilder()
+                    .setCustomId('ban-appeal')
+                    .setLabel('Ban Appeal')
                     .setStyle(ButtonStyle.Primary)
             );
 
-        await message.channel.send({ 
-            embeds: [banner, appEmbed], 
-            components: [row] 
+        await message.channel.send({
+            embeds: [banner, appEmbed],
+            components: [row]
         });
     },
 };
