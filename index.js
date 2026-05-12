@@ -19,6 +19,7 @@ client.config = require('./config.js');
 client.cooldowns = new Map();
 client.cache = new Map();
 client.messages = new Map();
+client.applications = new Map();
 
 require('./utils/ComponentLoader.js')(client);
 require('./utils/EventLoader.js')(client);
@@ -43,6 +44,12 @@ client.on(Events.ClientReady, () => {
 
 client.on('messageCreate', async (message) => {
     if (message.author.bot) return;
+
+    // Handle DM Application Flow
+    if (!message.guild && client.applications.has(message.author.id)) {
+        const { handleApplicationStep } = require('./utils/ApplicationHandler.js');
+        return handleApplicationStep(message, client);
+    }
 
     const prefix = client.config.prefix;
     if (!prefix || !message.content.startsWith(prefix)) return;
